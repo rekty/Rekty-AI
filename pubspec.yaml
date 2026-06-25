@@ -1,0 +1,54 @@
+name: rekty_ai
+description: "Rekty AI - Chat & Image Generation Assistant powered by Rekty"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  
+  photo_view: ^0.15.0
+  
+  markdown_widget: ^2.3.2+6
+  flutter_highlight: ^0.7.0
+
+  
+  # HTTP client untuk REST API Gemini (image generation/editing)
+  # Dipakai karena package google_generative_ai resmi belum mendukung
+  # image generation dengan baik di Dart/Flutter.
+  http: ^1.1.0
+
+  # Local database (chat & image history)
+  isar: 3.1.0+1
+  isar_flutter_libs: 3.1.0+1
+
+  # File & path utilities
+  path_provider: ^2.1.1
+  path: ^1.8.3
+
+  # Image picking & handling
+  image_picker: ^1.0.4
+
+  # State management
+  provider: ^6.0.5
+
+  # UI utilities
+  flutter_markdown: ^0.6.18
+  intl: ^0.18.1
+  uuid: ^3.0.7
+  shimmer: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  isar_generator: 3.1.0+1
+  build_runner: ^2.4.6
+
+flutter:
+  uses-material-design: true
