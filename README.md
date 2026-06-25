@@ -219,3 +219,13 @@ Email: rekty.anjany@gmail.com
   <br/>
   <sub>Powered by <a href="https://pollinations.ai">pollinations.ai</a></sub>
 </p>
+
+## Screenshots
+
+| Chat | Image Generator |
+|------|-----------------|
+| ![](screenshots/chat.png) | ![](screenshots/image.png) |
+
+| History | Settings |
+|---------|----------|
+| ![](screenshots/history.png) | ![](screenshots/settings.png) |
