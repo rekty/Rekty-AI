@@ -1,0 +1,51 @@
+REKTY AI LICENSE AGREEMENT
+
+Version 1.0
+Copyright © 2026 Rekty Anjany. All Rights Reserved.
+
+1. GRANT OF USE
+
+Permission is granted to use Rekty AI for personal and commercial purposes.
+
+2. RESTRICTIONS
+
+Without prior written permission from the copyright holder, you may NOT:
+
+- Sell this software or any modified version.
+- Redistribute this software or its source code.
+- Publish this software under another name.
+- Claim ownership of this software.
+- Remove or modify this copyright notice.
+- Create derivative works intended for redistribution or commercial release.
+
+3. SOURCE CODE
+
+The source code of Rekty AI remains the exclusive property of Rekty Anjany.
+
+Viewing the source code does not grant permission to copy, redistribute, publish, or reuse substantial portions of the project.
+
+4. THIRD-PARTY SERVICES
+
+This application may use third-party services including, but not limited to:
+
+- Pollinations AI
+- Flutter
+- Other open-source libraries under their respective licenses.
+
+Those services and libraries remain subject to their own licenses and terms of use.
+
+5. DISCLAIMER
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+
+THE AUTHOR SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THIS SOFTWARE.
+
+6. CONTACT
+
+Developer:
+Rekty Anjany
+
+Email:
+rekty.anjany@gmail.com
+
+© 2026 Rekty Anjany. All Rights Reserved.
