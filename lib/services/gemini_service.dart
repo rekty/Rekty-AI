@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
 import 'api_key_service.dart';
 import 'language_service.dart';
+import 'image_director_helper.dart';
 import '../models/chat_message.dart';
 import '../prompts/chat_system_prompt.dart';
-import '../prompts/image_director_system_prompt.dart';
 import '../config/ai_config.dart';
 import '../config/pollinations_config.dart';
 
@@ -83,9 +84,9 @@ class GeminiService {
         print('APP KEY dari server: berhasil diambil');
         return _cachedAppKey;
       }
-      print('Fetch server gagal: \${response.statusCode}');
+      print('Fetch server gagal: ${response.statusCode}');
     } catch (e) {
-      print('Fetch server error: \$e');
+      print('Fetch server error: $e');
     }
     return null;
   }
@@ -124,15 +125,22 @@ class GeminiService {
       // ── Bangun history messages (max 20 pesan terakhir) ───────────────
       final history = _buildHistoryMessages(historyMessages);
 
+      print('================================');
+      print('CHAT API KEY: ${apiKey.isEmpty ? "KOSONG!" : apiKey.substring(0, apiKey.length.clamp(0, 16))}');
+      print('================================');
+
       final response = await http.post(
-        Uri.parse('https://text.pollinations.ai/openai'),
+        Uri.parse('https://gen.pollinations.ai/v1/chat/completions'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $apiKey',
+          if (apiKey.isNotEmpty) 'Authorization': 'Bearer $apiKey',
+          'Referer': 'https://rekty.app',
+          'X-Referral': 'rekty',
         },
         body: jsonEncode({
           "model": selectedModel,
           "temperature": AIConfig.chatTemperature,
+          if (apiKey.isNotEmpty) "referral": apiKey,
           "messages": [
             {
               "role": "system",
@@ -152,13 +160,43 @@ class GeminiService {
       print('CHAT STATUS: ${response.statusCode}');
       print('CHAT BODY: ${response.body}');
 
-      if (response.statusCode != 200) {
+      // 402 = Pollen balance habis → fallback ke endpoint lama (gratis)
+      http.Response finalResponse = response;
+      if (response.statusCode == 402) {
+        print('CHAT FALLBACK: gen.pollinations.ai 402, coba text.pollinations.ai...');
+        finalResponse = await http.post(
+          Uri.parse('https://text.pollinations.ai/openai'),
+          headers: {
+            'Content-Type': 'application/json',
+            if (apiKey.isNotEmpty) 'Authorization': 'Bearer $apiKey',
+          },
+          body: jsonEncode({
+            "model": selectedModel,
+            "temperature": AIConfig.chatTemperature,
+            "messages": [
+              {
+                "role": "system",
+                "content":
+                    "$chatSystemPrompt\n\nSelalu jawab menggunakan bahasa $language.",
+              },
+              ...history,
+              {
+                "role": "user",
+                "content": message,
+              }
+            ]
+          }),
+        );
+        print('CHAT FALLBACK STATUS: ${finalResponse.statusCode}');
+      }
+
+      if (finalResponse.statusCode != 200) {
         return GeminiResult.error(
-          'Pollinations Error: ${response.statusCode}\n${response.body}',
+          'Pollinations Error: ${finalResponse.statusCode}\n${finalResponse.body}',
         );
       }
 
-      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final data = jsonDecode(finalResponse.body) as Map<String, dynamic>;
       final text =
           data['choices'][0]['message']['content']?.toString();
 
@@ -198,19 +236,26 @@ class GeminiService {
     try {
       final request = http.Request(
         'POST',
-        Uri.parse('https://text.pollinations.ai/openai'),
+        Uri.parse('https://gen.pollinations.ai/v1/chat/completions'),
       );
+
+      print('================================');
+      print('STREAM API KEY: ${apiKey.isEmpty ? "KOSONG!" : apiKey.substring(0, apiKey.length.clamp(0, 16))}');
+      print('================================');
 
       request.headers.addAll({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
+        if (apiKey.isNotEmpty) 'Authorization': 'Bearer $apiKey',
         'Accept': 'text/event-stream',
+        'Referer': 'https://rekty.app',
+        'X-Referral': 'rekty',
       });
 
       request.body = jsonEncode({
         'model': selectedModel,
         'temperature': AIConfig.chatTemperature,
         'stream': true,
+        if (apiKey.isNotEmpty) 'referral': apiKey,
         'messages': [
           {
             'role': 'system',
@@ -227,9 +272,29 @@ class GeminiService {
 
       print('STREAM MODEL: $selectedModel');
 
-      final streamedResponse = await client.send(request);
+      var streamedResponse = await client.send(request);
 
       print('STREAM STATUS: ${streamedResponse.statusCode}');
+
+      // 402 = Pollen balance habis → fallback ke endpoint lama (gratis)
+      if (streamedResponse.statusCode == 402) {
+        print('STREAM FALLBACK: gen.pollinations.ai 402, coba text.pollinations.ai...');
+        await streamedResponse.stream.drain();
+
+        final fallbackRequest = http.Request(
+          'POST',
+          Uri.parse('https://text.pollinations.ai/openai'),
+        );
+        fallbackRequest.headers.addAll({
+          'Content-Type': 'application/json',
+          if (apiKey.isNotEmpty) 'Authorization': 'Bearer $apiKey',
+          'Accept': 'text/event-stream',
+        });
+        fallbackRequest.body = request.body;
+
+        streamedResponse = await client.send(fallbackRequest);
+        print('STREAM FALLBACK STATUS: ${streamedResponse.statusCode}');
+      }
 
       if (streamedResponse.statusCode != 200) {
         final body = await streamedResponse.stream.bytesToString();
@@ -296,26 +361,33 @@ class GeminiService {
     }).toList();
   }
 
-  /// Enhance prompt user via Pollinations text API menggunakan imageDirectorSystemPrompt.
+  /// Enhance prompt user via Pollinations text API menggunakan Image Director.
+  /// System prompt otomatis disesuaikan dengan model yang sedang aktif.
   /// Jika gagal, kembalikan prompt asli agar generate tetap berjalan.
   Future<String> _enhancePromptWithDirector(
     String userPrompt,
-    String? apiKey,
-  ) async {
+    String? apiKey, {
+    String? modelKey, // model image yang aktif — untuk inject instruksi spesifik
+  }) async {
+    // Bangun system prompt dinamis sesuai model aktif
+    final systemPrompt = buildImageDirectorPrompt(modelKey ?? 'flux');
+
     try {
       final response = await http.post(
-        Uri.parse('https://text.pollinations.ai/openai'),
+        Uri.parse('https://gen.pollinations.ai/v1/chat/completions'),
         headers: {
           'Content-Type': 'application/json',
           if (apiKey != null && apiKey.isNotEmpty)
             'Authorization': 'Bearer $apiKey',
+          'Referer': 'https://rekty.app',
+          'X-Referral': 'rekty',
         },
         body: jsonEncode({
           'model': 'openai',
           'messages': [
             {
               'role': 'system',
-              'content': imageDirectorSystemPrompt,
+              'content': systemPrompt,
             },
             {
               'role': 'user',
@@ -330,6 +402,7 @@ class GeminiService {
         final enhanced =
             data['choices']?[0]?['message']?['content']?.toString().trim();
         if (enhanced != null && enhanced.isNotEmpty) {
+          print('IMAGE DIRECTOR MODEL: ${modelKey ?? "flux"}');
           print('ENHANCED PROMPT: $enhanced');
           return enhanced;
         }
@@ -373,10 +446,11 @@ class GeminiService {
       );
       print('================================');
 
-      // ── Enhance prompt via Image Director ────────────────────────────
+      // ── Enhance prompt via Image Director (model-aware) ──────────────
       final enhancedPrompt = await _enhancePromptWithDirector(
         prompt,
         resolvedKey,
+        modelKey: selectedModel,
       );
 
       // ── Mode Auto: coba beberapa model secara berurutan ──────────────
@@ -441,11 +515,15 @@ class GeminiService {
     // App Key dipakai sebagai 'token', fallback ke API Key jika App Key kosong
     final tokenKey = (appKey != null && appKey.isNotEmpty) ? appKey : apiKey;
 
+    // Seed acak agar setiap generate dengan prompt yang sama menghasilkan gambar berbeda
+    final seed = Random().nextInt(2147483647);
+
     // Bangun query parameters secara eksplisit agar mudah dibaca & diubah.
     final params = <String, String>{
       'model': model,
       'width': '$width',
       'height': '$height',
+      'seed': '$seed',
       'nologo': PollinationsConfig.noLogo.toString(),
       'enhance': PollinationsConfig.enhance.toString(),
       'safe': PollinationsConfig.safe.toString(),
@@ -519,16 +597,17 @@ class GeminiService {
       final width = size['width']!;
       final height = size['height']!;
 
-      // ── Enhance prompt via Image Director ──────────────────────────────
-      final enhancedPrompt = await _enhancePromptWithDirector(
-        instruction,
-        resolvedKey,
-      );
-
       // Model yang tidak support img2img → generate biasa, abaikan gambar
       final modelToUse = _img2imgModels.contains(selectedModel)
           ? selectedModel
           : 'kontext'; // default ke kontext untuk edit
+
+      // ── Enhance prompt via Image Director (model-aware) ──────────────
+      final enhancedPrompt = await _enhancePromptWithDirector(
+        instruction,
+        resolvedKey,
+        modelKey: modelToUse,
+      );
 
       print('================================');
       print('EDIT IMAGE MODEL: $modelToUse');
@@ -543,10 +622,14 @@ class GeminiService {
         'https://image.pollinations.ai/prompt/${Uri.encodeComponent(enhancedPrompt)}',
       );
 
+      // Seed acak agar setiap edit dengan instruksi yang sama menghasilkan gambar berbeda
+      final editSeed = Random().nextInt(2147483647);
+
       final params = <String, String>{
         'model': modelToUse,
         'width': '$width',
         'height': '$height',
+        'seed': '$editSeed',
         'nologo': PollinationsConfig.noLogo.toString(),
         'safe': PollinationsConfig.safe.toString(),
         if (tokenKey.isNotEmpty) 'token': tokenKey,

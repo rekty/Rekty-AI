@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'services/isar_service.dart';
+import 'services/language_service.dart';
 import 'screens/chat_screen.dart';
 
 Future<void> main() async {
@@ -8,6 +9,9 @@ Future<void> main() async {
 
   // Inisialisasi database lokal sebelum app dijalankan
   await IsarService.instance.init();
+
+  // Inisialisasi bahasa tersimpan ke notifier global
+  await LanguageService.instance.initNotifier();
 
   // Status bar transparan menyatu dengan tema gelap
   SystemChrome.setSystemUIOverlayStyle(
@@ -50,4 +54,3 @@ class RektyAIApp extends StatelessWidget {
     );
   }
 }
-

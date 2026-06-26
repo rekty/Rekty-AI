@@ -41,62 +41,110 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String tr(String key) {
     if (_selectedLanguage == 'English') {
       switch (key) {
-        case 'chat_model':
-          return 'Chat Model';
-        case 'image_model':
-          return 'Image Model';
-        case 'aspect_ratio':
-          return 'Aspect Ratio';
-        case 'language':
-          return 'Language';
-        case 'pollinations_key':
-          return 'Pollinations Key';
-        case 'settings':
-          return 'Settings';
-        case 'api_config':
-          return 'API CONFIGURATION';
-        case 'data':
-          return 'DATA';
-        case 'about':
-          return 'About';
-        case 'license':
-          return 'Application License';
-        case 'readme':
-          return 'README';
-        case 'readme_subtitle':
-          return 'Documentation & setup guide';
-        default:
-          return key;
+        // Settings screen labels
+        case 'settings':              return 'Settings';
+        case 'about':                 return 'About';
+        case 'api_config':            return 'API CONFIGURATION';
+        case 'data':                  return 'DATA';
+        case 'language':              return 'Language';
+        case 'chat_model':            return 'Chat Model';
+        case 'image_model':           return 'Image Model';
+        case 'aspect_ratio':          return 'Aspect Ratio';
+        case 'license':               return 'Application License';
+        case 'readme':                return 'README';
+        case 'readme_subtitle':       return 'Documentation & setup guide';
+        case 'pollinations_key':      return 'Pollinations Key';
+        // API key tiles
+        case 'upload_api_key':        return 'Upload Pollinations API Key';
+        case 'change_api_key':        return 'Change Pollinations API Key';
+        case 'api_key_saved':         return 'Pollinations API key saved';
+        case 'api_key_hint':          return 'Enter Pollinations API key';
+        case 'upload_app_key':        return 'Upload Pollinations App Key';
+        case 'change_app_key':        return 'Change Pollinations App Key';
+        case 'app_key_saved':         return 'Pollinations App Key saved';
+        case 'app_key_hint':          return 'Enter Pollinations App Key (PK_)';
+        // Data section
+        case 'delete_chat_history':   return 'Delete All Chat History';
+        case 'delete_chat_subtitle':  return 'Removes all saved conversations';
+        case 'delete_image_history':  return 'Delete All Image History';
+        case 'delete_image_subtitle': return 'Removes all generated/edited images';
+        // Dialogs & actions
+        case 'cancel':                return 'Cancel';
+        case 'save':                  return 'Save';
+        case 'close':                 return 'Close';
+        case 'delete':                return 'Delete';
+        case 'select_image_model':    return 'Select Image Model';
+        case 'select_aspect_ratio':   return 'Select Aspect Ratio';
+        case 'select_chat_model':     return 'Select Chat Model';
+        case 'select_language':       return 'Select Language';
+        // Snackbar
+        case 'api_key_empty':         return 'Pollinations API key cannot be empty.';
+        case 'api_key_success':       return 'Pollinations API key saved successfully.';
+        case 'app_key_empty':         return 'Pollinations App Key cannot be empty.';
+        case 'app_key_success':       return 'Pollinations App Key saved successfully.';
+        case 'chat_deleted':          return 'Chat history deleted successfully.';
+        case 'image_deleted':         return 'Image history deleted successfully.';
+        // Confirm dialogs
+        case 'delete_chat_title':     return 'Delete all chats?';
+        case 'delete_chat_msg':       return 'All conversation history will be permanently deleted.';
+        case 'delete_image_title':    return 'Delete all images?';
+        case 'delete_image_msg':      return 'All image history will be permanently deleted.';
+        // About / info
+        case 'app_version':           return 'Version 1.0.0 - Powered by Rekty Anjany';
+        case 'license_view':          return 'View Rekty AI terms of use';
+        case 'privacy_subtitle':      return 'Rekty AI Studio privacy policy';
+        default:                      return key;
       }
     }
 
+    // Default: Indonesia
     switch (key) {
-      case 'chat_model':
-        return 'Model Chat';
-      case 'image_model':
-        return 'Model Gambar';
-      case 'aspect_ratio':
-        return 'Rasio Gambar';
-      case 'language':
-        return 'Bahasa';
-      case 'pollinations_key':
-        return 'Pollinations Key';
-      case 'settings':
-        return 'Pengaturan';
-      case 'api_config':
-        return 'Konfigurasi API';
-      case 'data':
-        return 'Data';
-      case 'about':
-        return 'Tentang';
-      case 'license':
-        return 'Lisensi Aplikasi';
-      case 'readme':
-        return 'README';
-      case 'readme_subtitle':
-        return 'Dokumentasi & panduan pengaturan';
-      default:
-        return key;
+      case 'settings':              return 'Pengaturan';
+      case 'about':                 return 'Tentang';
+      case 'api_config':            return 'Konfigurasi API';
+      case 'data':                  return 'Data';
+      case 'language':              return 'Bahasa';
+      case 'chat_model':            return 'Model Chat';
+      case 'image_model':           return 'Model Gambar';
+      case 'aspect_ratio':          return 'Rasio Gambar';
+      case 'license':               return 'Lisensi Aplikasi';
+      case 'readme':                return 'README';
+      case 'readme_subtitle':       return 'Dokumentasi & panduan pengaturan';
+      case 'pollinations_key':      return 'Pollinations Key';
+      case 'upload_api_key':        return 'Upload Pollinations API Key';
+      case 'change_api_key':        return 'Ganti Pollinations API Key';
+      case 'api_key_saved':         return 'Pollinations API key tersimpan';
+      case 'api_key_hint':          return 'Masukkan Pollinations API key';
+      case 'upload_app_key':        return 'Upload Pollinations App Key';
+      case 'change_app_key':        return 'Ganti Pollinations App Key';
+      case 'app_key_saved':         return 'Pollinations App Key tersimpan';
+      case 'app_key_hint':          return 'Masukkan Pollinations App Key (PK_)';
+      case 'delete_chat_history':   return 'Hapus Semua Riwayat Chat';
+      case 'delete_chat_subtitle':  return 'Menghapus seluruh percakapan yang tersimpan';
+      case 'delete_image_history':  return 'Hapus Semua Riwayat Gambar';
+      case 'delete_image_subtitle': return 'Menghapus seluruh gambar yang pernah dibuat/diedit';
+      case 'cancel':                return 'Batal';
+      case 'save':                  return 'Simpan';
+      case 'close':                 return 'Tutup';
+      case 'delete':                return 'Hapus';
+      case 'select_image_model':    return 'Pilih Model Gambar';
+      case 'select_aspect_ratio':   return 'Pilih Rasio Gambar';
+      case 'select_chat_model':     return 'Pilih Model Chat';
+      case 'select_language':       return 'Pilih Bahasa';
+      case 'api_key_empty':         return 'Pollinations API key tidak boleh kosong.';
+      case 'api_key_success':       return 'Pollinations API key berhasil disimpan.';
+      case 'app_key_empty':         return 'Pollinations App Key tidak boleh kosong.';
+      case 'app_key_success':       return 'Pollinations App Key berhasil disimpan.';
+      case 'chat_deleted':          return 'Riwayat chat berhasil dihapus.';
+      case 'image_deleted':         return 'Riwayat gambar berhasil dihapus.';
+      case 'delete_chat_title':     return 'Hapus semua chat?';
+      case 'delete_chat_msg':       return 'Semua riwayat percakapan akan dihapus permanen.';
+      case 'delete_image_title':    return 'Hapus semua gambar?';
+      case 'delete_image_msg':      return 'Semua riwayat gambar akan dihapus permanen.';
+      case 'app_version':           return 'Versi 1.0.0 - Powered by Rekty Anjany';
+      case 'license_view':          return 'Lihat ketentuan penggunaan Rekty AI';
+      case 'privacy_subtitle':      return 'Kebijakan privasi Rekty AI Studio';
+      default:                      return key;
     }
   }
 
@@ -107,6 +155,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     _loadApiKeyState();
     _testPollinationsModels();
+    // Listen ke perubahan bahasa global
+    languageNotifier.addListener(_onLanguageChanged);
+  }
+
+  @override
+  void dispose() {
+    languageNotifier.removeListener(_onLanguageChanged);
+    super.dispose();
+  }
+
+  void _onLanguageChanged() {
+    if (!mounted) return;
+    setState(() => _selectedLanguage = languageNotifier.value);
   }
 
   Future<void> _testPollinationsModels() async {
@@ -124,7 +185,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final savedModel = await _apiKeyService.getImageModel();
     final savedChatModel = await _apiKeyService.getChatModel();
     final savedAspectRatio = await _apiKeyService.getAspectRatio();
-    final language = await LanguageService.instance.getLanguage();
 
     print('MODEL DARI STORAGE: $savedModel');
     print('ASPECT RATIO DARI STORAGE: $savedAspectRatio');
@@ -132,14 +192,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (!mounted) return;
 
     setState(() {
-      _hasPollinationsKey =
-          pollinationsKey != null && pollinationsKey.isNotEmpty;
-      _hasPollinationsAppKey =
-          pollinationsAppKey != null && pollinationsAppKey.isNotEmpty;
+      _hasPollinationsKey = pollinationsKey != null && pollinationsKey.isNotEmpty;
+      _hasPollinationsAppKey = pollinationsAppKey != null && pollinationsAppKey.isNotEmpty;
       _selectedImageModel = savedModel ?? 'flux';
       _selectedChatModel = savedChatModel ?? 'openai';
       _selectedAspectRatio = savedAspectRatio ?? '1:1 Square';
-      _selectedLanguage = language ?? 'Indonesia';
+      _selectedLanguage = languageNotifier.value;
     });
   }
 
@@ -152,8 +210,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF000000),
         elevation: 0,
-        title: Text(tr('settings'),
-            style: const TextStyle(color: Colors.white)),
+        title: Text(tr('settings'), style: const TextStyle(color: Colors.white)),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -163,19 +220,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _infoTile(
             icon: Icons.auto_awesome,
             title: 'Rekty AI',
-            subtitle: 'Versi 1.0.0 - Powered by Rekty Anjany',
+            subtitle: tr('app_version'),
           ),
           _actionTile(
             icon: Icons.description_outlined,
             title: tr('license'),
-            subtitle: 'Lihat ketentuan penggunaan Rekty AI',
+            subtitle: tr('license_view'),
             color: const Color(0xFF00E5FF),
             onTap: _showLicenseDialog,
           ),
           _actionTile(
             icon: Icons.privacy_tip_outlined,
             title: 'Privacy Policy',
-            subtitle: 'Kebijakan privasi Rekty AI Studio',
+            subtitle: tr('privacy_subtitle'),
             color: const Color(0xFF00E5FF),
             onTap: _showPrivacyPolicyDialog,
           ),
@@ -193,23 +250,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _sectionLabel(tr('api_config')),
           _actionTile(
             icon: Icons.image,
-            title: _hasPollinationsKey
-                ? 'Ganti Pollinations API Key'
-                : 'Upload Pollinations API Key',
-            subtitle: _hasPollinationsKey
-                ? 'Pollinations API key tersimpan'
-                : 'Masukkan Pollinations API key',
+            title: _hasPollinationsKey ? tr('change_api_key') : tr('upload_api_key'),
+            subtitle: _hasPollinationsKey ? tr('api_key_saved') : tr('api_key_hint'),
             color: const Color(0xFF00E5FF),
             onTap: _showPollinationsApiKeyDialog,
           ),
           _actionTile(
             icon: Icons.vpn_key,
-            title: _hasPollinationsAppKey
-                ? 'Ganti Pollinations App Key'
-                : 'Upload Pollinations App Key',
-            subtitle: _hasPollinationsAppKey
-                ? 'Pollinations App Key tersimpan'
-                : 'Masukkan Pollinations App Key (PK_)',
+            title: _hasPollinationsAppKey ? tr('change_app_key') : tr('upload_app_key'),
+            subtitle: _hasPollinationsAppKey ? tr('app_key_saved') : tr('app_key_hint'),
             color: const Color(0xFF00E5FF),
             onTap: _showPollinationsAppKeyDialog,
           ),
@@ -223,7 +272,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: _showImageModelDialog,
           ),
 
-          // ✅ BARU: Menu Aspect Ratio
           _actionTile(
             icon: Icons.aspect_ratio,
             title: tr('aspect_ratio'),
@@ -253,29 +301,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _sectionLabel(tr('data')),
           _actionTile(
             icon: Icons.delete_sweep_outlined,
-            title: 'Hapus Semua Riwayat Chat',
-            subtitle: 'Menghapus seluruh percakapan yang tersimpan',
+            title: tr('delete_chat_history'),
+            subtitle: tr('delete_chat_subtitle'),
             onTap: () => _confirmAction(
-              title: 'Hapus semua chat?',
-              message: 'Semua riwayat percakapan akan dihapus permanen.',
-              confirmLabel: 'Hapus',
+              title: tr('delete_chat_title'),
+              message: tr('delete_chat_msg'),
+              confirmLabel: tr('delete'),
               onConfirm: () async {
                 await _isarService.clearAllMessages();
-                _showSnack('Riwayat chat berhasil dihapus.');
+                _showSnack(tr('chat_deleted'));
               },
             ),
           ),
           _actionTile(
             icon: Icons.image_not_supported_outlined,
-            title: 'Hapus Semua Riwayat Gambar',
-            subtitle: 'Menghapus seluruh gambar yang pernah dibuat/diedit',
+            title: tr('delete_image_history'),
+            subtitle: tr('delete_image_subtitle'),
             onTap: () => _confirmAction(
-              title: 'Hapus semua gambar?',
-              message: 'Semua riwayat gambar akan dihapus permanen.',
-              confirmLabel: 'Hapus',
+              title: tr('delete_image_title'),
+              message: tr('delete_image_msg'),
+              confirmLabel: tr('delete'),
               onConfirm: () async {
                 await _isarService.clearAllImageHistory();
-                _showSnack('Riwayat gambar berhasil dihapus.');
+                _showSnack(tr('image_deleted'));
               },
             ),
           ),
@@ -319,8 +367,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFF00E5FF)),
       title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle:
-          Text(subtitle, style: const TextStyle(color: Colors.white38)),
+      subtitle: Text(subtitle, style: const TextStyle(color: Colors.white38)),
     );
   }
 
@@ -334,10 +381,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListTile(
       leading: Icon(icon, color: color.withValues(alpha: 0.9)),
       title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle:
-          Text(subtitle, style: const TextStyle(color: Colors.white38)),
-      trailing:
-          const Icon(Icons.chevron_right, color: Colors.white30),
+      subtitle: Text(subtitle, style: const TextStyle(color: Colors.white38)),
+      trailing: const Icon(Icons.chevron_right, color: Colors.white30),
       onTap: onTap,
     );
   }
@@ -358,31 +403,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
           obscureText: true,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: 'Tempel Pollinations API key di sini',
+            hintText: tr('api_key_hint'),
             hintStyle: const TextStyle(color: Colors.white38),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  const BorderSide(color: Color(0x3300E5FF)),
+              borderSide: const BorderSide(color: Color(0x3300E5FF)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  const BorderSide(color: Color(0xFF00E5FF)),
+              borderSide: const BorderSide(color: Color(0xFF00E5FF)),
             ),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Batal',
-                style: TextStyle(color: Colors.white54)),
+            child: Text(tr('cancel'), style: const TextStyle(color: Colors.white54)),
           ),
           TextButton(
             onPressed: () async {
               final key = controller.text.trim();
               if (key.isEmpty) {
-                _showSnack('Pollinations API key tidak boleh kosong.');
+                _showSnack(tr('api_key_empty'));
                 return;
               }
               final nav = Navigator.of(context);
@@ -391,10 +433,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               nav.pop();
               await _loadApiKeyState();
               if (!mounted) return;
-              _showSnack('Pollinations API key berhasil disimpan.');
+              _showSnack(tr('api_key_success'));
             },
-            child: const Text('Simpan',
-                style: TextStyle(color: Color(0xFF00E5FF))),
+            child: Text(tr('save'), style: const TextStyle(color: Color(0xFF00E5FF))),
           ),
         ],
       ),
@@ -417,31 +458,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
           obscureText: true,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: 'Tempel Pollinations App Key (PK_)',
+            hintText: tr('app_key_hint'),
             hintStyle: const TextStyle(color: Colors.white38),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  const BorderSide(color: Color(0x3300E5FF)),
+              borderSide: const BorderSide(color: Color(0x3300E5FF)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  const BorderSide(color: Color(0xFF00E5FF)),
+              borderSide: const BorderSide(color: Color(0xFF00E5FF)),
             ),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Batal',
-                style: TextStyle(color: Colors.white54)),
+            child: Text(tr('cancel'), style: const TextStyle(color: Colors.white54)),
           ),
           TextButton(
             onPressed: () async {
               final key = controller.text.trim();
               if (key.isEmpty) {
-                _showSnack('Pollinations App Key tidak boleh kosong.');
+                _showSnack(tr('app_key_empty'));
                 return;
               }
               final nav = Navigator.of(context);
@@ -450,10 +488,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               nav.pop();
               await _loadApiKeyState();
               if (!mounted) return;
-              _showSnack('Pollinations App Key berhasil disimpan.');
+              _showSnack(tr('app_key_success'));
             },
-            child: const Text('Simpan',
-                style: TextStyle(color: Color(0xFF00E5FF))),
+            child: Text(tr('save'), style: const TextStyle(color: Color(0xFF00E5FF))),
           ),
         ],
       ),
@@ -467,8 +504,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: const Text('Pilih Model Gambar',
-            style: TextStyle(color: Colors.white)),
+        title: Text(tr('select_image_model'), style: const TextStyle(color: Colors.white)),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView(
@@ -481,10 +517,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: entry.key,
                 groupValue: _selectedImageModel,
                 activeColor: const Color(0xFF00E5FF),
-                title: Text(
-                  entry.value,
-                  style: const TextStyle(color: Colors.white),
-                ),
+                title: Text(entry.value, style: const TextStyle(color: Colors.white)),
                 onChanged: (value) async {
                   if (value == null) return;
                   await ApiKeyService.instance.saveImageModel(value);
@@ -509,10 +542,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: const Text(
-          'Pilih Rasio Gambar',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text(tr('select_aspect_ratio'), style: const TextStyle(color: Colors.white)),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView(
@@ -521,15 +551,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               final key = entry['key']!;
               final label = entry['label']!;
               final icon = entry['icon']!;
-
               return RadioListTile<String>(
                 value: key,
                 groupValue: _selectedAspectRatio,
                 activeColor: const Color(0xFF00E5FF),
-                title: Text(
-                  '$icon  $label',
-                  style: const TextStyle(color: Colors.white),
-                ),
+                title: Text('$icon  $label', style: const TextStyle(color: Colors.white)),
                 subtitle: _buildAspectRatioSize(key),
                 onChanged: (value) async {
                   if (value == null) return;
@@ -546,15 +572,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Tutup',
-                style: TextStyle(color: Colors.white54)),
+            child: Text(tr('close'), style: const TextStyle(color: Colors.white54)),
           ),
         ],
       ),
     );
   }
 
-  /// Widget kecil menampilkan ukuran piksel di bawah label aspect ratio.
   Widget? _buildAspectRatioSize(String key) {
     const sizeMap = {
       '1:1 Square':      '1024 × 1024 px',
@@ -611,10 +635,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: const Text(
-          'Pilih Model Chat',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text(tr('select_chat_model'), style: const TextStyle(color: Colors.white)),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView(
@@ -624,10 +645,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: model,
                 groupValue: _selectedChatModel,
                 activeColor: const Color(0xFF00E5FF),
-                title: Text(
-                  model,
-                  style: const TextStyle(color: Colors.white),
-                ),
+                title: Text(model, style: const TextStyle(color: Colors.white)),
                 onChanged: (value) async {
                   if (value == null) return;
                   await ApiKeyService.instance.saveChatModel(value);
@@ -669,10 +687,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: const Text(
-          'Pilih Bahasa',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text(tr('select_language'), style: const TextStyle(color: Colors.white)),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView(
@@ -682,12 +697,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: language,
                 groupValue: _selectedLanguage,
                 activeColor: const Color(0xFF00E5FF),
-                title: Text(
-                  language,
-                  style: const TextStyle(color: Colors.white),
-                ),
+                title: Text(language, style: const TextStyle(color: Colors.white)),
                 onChanged: (value) async {
                   if (value == null) return;
+                  // saveLanguage sudah update languageNotifier secara otomatis
                   await LanguageService.instance.saveLanguage(value);
                   if (!mounted) return;
                   setState(() => _selectedLanguage = value);
@@ -714,23 +727,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: Text(title,
-            style: const TextStyle(color: Colors.white)),
-        content: Text(message,
-            style: const TextStyle(color: Colors.white70)),
+        title: Text(title, style: const TextStyle(color: Colors.white)),
+        content: Text(message, style: const TextStyle(color: Colors.white70)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Batal',
-                style: TextStyle(color: Colors.white54)),
+            child: Text(tr('cancel'), style: const TextStyle(color: Colors.white54)),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
               await onConfirm();
             },
-            child: Text(confirmLabel,
-                style: const TextStyle(color: Colors.redAccent)),
+            child: Text(confirmLabel, style: const TextStyle(color: Colors.redAccent)),
           ),
         ],
       ),
@@ -744,10 +753,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF101417),
-        title: const Text(
-          'Privacy Policy',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
         content: const SingleChildScrollView(
           child: Text(
             '''
@@ -792,17 +798,70 @@ Email: rekty.anjany@gmail.com
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Tutup',
-              style: TextStyle(color: Color(0xFF00E5FF)),
-            ),
+            child: const Text('OK', style: TextStyle(color: Color(0xFF00E5FF))),
           ),
         ],
       ),
     );
   }
 
-  // ── Dialog: README ────────────────────────────────────────────────────
+  // ── Dialog: Lisensi ────────────────────────────────────────────────────
+
+  void _showLicenseDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF101417),
+        title: const Text('Lisensi Rekty AI', style: TextStyle(color: Colors.white)),
+        content: const SingleChildScrollView(
+          child: Text(
+            '''
+REKTY AI LICENSE AGREEMENT
+
+Versi 1.0.0
+
+© 2026 Rekty. All Rights Reserved.
+
+1. Pengguna diperbolehkan menggunakan aplikasi untuk kebutuhan pribadi maupun bisnis.
+
+2. Dilarang menjual ulang, mendistribusikan ulang, atau memodifikasi aplikasi untuk tujuan komersial tanpa izin tertulis dari Rekty.
+
+3. Beberapa fitur menggunakan layanan AI pihak ketiga dan API Key yang valid.
+
+4. Aplikasi disediakan sebagaimana adanya tanpa jaminan apa pun.
+
+5. Pengembang tidak bertanggung jawab atas kehilangan data, kerugian bisnis, atau gangguan layanan pihak ketiga.
+
+6. Dengan menggunakan aplikasi ini, pengguna dianggap menyetujui seluruh ketentuan lisensi.
+
+© 2026 Rekty
+rekty.anjany@gmail.com
+            ''',
+            style: TextStyle(color: Colors.white70, height: 1.5),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK', style: TextStyle(color: Color(0xFF00E5FF))),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Snackbar ───────────────────────────────────────────────────────────
+
+  void _showSnack(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: const Color(0xFF101417),
+      ),
+    );
+  }
+
+  // ── README dialog (tidak berubah, kontennya teknis/statis) ─────────────
 
   Widget _readmeHeading(String text) => Padding(
         padding: const EdgeInsets.only(top: 18, bottom: 6),
@@ -867,13 +926,10 @@ Email: rekty.anjany@gmail.com
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                // ── Logo + Badge ──────────────────────────────────
                 const SizedBox(height: 12),
                 Center(
                   child: Column(
                     children: [
-                      // pollinations.ai Logo Text White
                       Image.network(
                         'https://image.pollinations.ai/prompt/pollinations%20ai%20logo%20text%20white%20minimal%20clean?width=360&height=100&model=flux&nologo=true',
                         height: 52,
@@ -883,7 +939,6 @@ Email: rekty.anjany@gmail.com
                         ),
                       ),
                       const SizedBox(height: 10),
-                      // Built With pollinations.ai badge
                       Image.network(
                         'https://pollinations.ai/p/built%20with%20pollinations%20badge%20white?width=200&height=48&model=flux&nologo=true',
                         height: 36,
@@ -902,19 +957,10 @@ Email: rekty.anjany@gmail.com
                     ],
                   ),
                 ),
-
                 _readmeDivider(),
-
-                // ── Judul & Deskripsi ─────────────────────────────
-                const Text(
-                  'Rekty AI',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
-                ),
+                const Text('Rekty AI', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17)),
                 const SizedBox(height: 5),
-                _readmeBody(
-                  'Aplikasi chat AI + generate/edit gambar berbasis Pollinations.ai, '
-                  'dibangun dengan Flutter.',
-                ),
+                _readmeBody('Aplikasi chat AI + generate/edit gambar berbasis Pollinations.ai, dibangun dengan Flutter.'),
                 const SizedBox(height: 8),
                 _readmeBody(
                   'Konfigurasi project ini disesuaikan untuk:\n'
@@ -923,35 +969,24 @@ Email: rekty.anjany@gmail.com
                   '  • Android minSdk 26 (Android 8.0+)\n'
                   '  • Gradle 7.6.3 + AGP 7.4.2 + Kotlin 1.8.22',
                 ),
-
                 _readmeDivider(),
-
-                // ── ⚠️ WAJIB DIBACA ──────────────────────────────
                 _readmeHeading('⚠️ WAJIB DIBACA SEBELUM BUILD'),
                 _readmeBody(
                   'Project ini berisi source code lengkap, tapi untuk jadi file .apk '
                   'yang jalan, kamu harus menjalankan beberapa langkah build di komputer '
                   'kamu sendiri (Flutter SDK tidak bisa dijalankan dari chat ini).',
                 ),
-
                 _readmeDivider(),
-
-                // ── Powered by ────────────────────────────────────
                 _readmeHeading('🌸 Powered by Pollinations.ai'),
                 _readmeBody(
                   'Rekty AI menggunakan Pollinations.ai sebagai backbone untuk:\n'
                   '  • Generasi gambar — model Flux, Turbo, dan lainnya\n'
                   '  • Chat AI — OpenAI, Gemini, DeepSeek, Mistral, Claude, dan lagi\n'
                   '  • Vision — kirim gambar ke AI untuk dianalisis\n\n'
-                  'Pollinations.ai menyediakan API gambar dan teks gratis berbasis model open-source terkini.\n\n'
                   'Website   : https://pollinations.ai\n'
-                  'API Docs  : https://pollinations.ai/docs\n'
-                  'Logo resmi: https://pollinations.ai/about#logos',
+                  'API Docs  : https://pollinations.ai/docs',
                 ),
-
                 _readmeDivider(),
-
-                // ── Langkah 1 ─────────────────────────────────────
                 _readmeHeading('Langkah 1 — Install Prasyarat'),
                 _readmeBody(
                   'Pastikan sudah terinstall di komputer kamu:\n\n'
@@ -961,10 +996,7 @@ Email: rekty.anjany@gmail.com
                   '3. Android Studio dengan Android SDK Platform 34 dan minimal API 26\n\n'
                   '4. Jalankan flutter doctor — pastikan semua centang hijau.',
                 ),
-
                 _readmeDivider(),
-
-                // ── Langkah 2 ─────────────────────────────────────
                 _readmeHeading('Langkah 2 — Isi API Key Pollinations'),
                 _readmeBody(
                   'Lebih mudah: isi langsung di dalam app via\nSettings → Konfigurasi API.\n\n'
@@ -972,10 +1004,7 @@ Email: rekty.anjany@gmail.com
                   '  • Pollinations App Key (opsional, dimulai PK_) — untuk fitur premium\n\n'
                   'Tanpa API key pun app sudah bisa jalan dengan model gratis Pollinations.ai.',
                 ),
-
                 _readmeDivider(),
-
-                // ── Langkah 3 ─────────────────────────────────────
                 _readmeHeading('Langkah 3 — Isi local.properties'),
                 _readmeBody('Buka file: android/local.properties\nContoh macOS:'),
                 _readmeCode(
@@ -988,31 +1017,14 @@ Email: rekty.anjany@gmail.com
                   '\n'
                   r'flutter.sdk=C:\Users\Administrator\develop\flutter',
                 ),
-                _readmeBody(
-                  'Tips: jalankan which flutter (macOS/Linux) atau where flutter (Windows) '
-                  'untuk tahu lokasi Flutter SDK kamu.',
-                ),
-
                 _readmeDivider(),
-
-                // ── Langkah 4 ─────────────────────────────────────
                 _readmeHeading('Langkah 4 — Install Dependencies & Generate DB Code'),
                 _readmeBody('Jalankan di terminal (folder root project):'),
                 _readmeCode(
                   'flutter pub get\n'
                   'flutter pub run build_runner build --delete-conflicting-outputs',
                 ),
-                _readmeBody(
-                  'Perintah kedua WAJIB dijalankan — ini akan generate file *.g.dart '
-                  '(chat_message.g.dart, image_history.g.dart) yang dibutuhkan Isar '
-                  'dan tidak disertakan dalam zip.\n\n'
-                  'Kalau flutter pub get error version solving failed: baca pesan errornya, '
-                  'sesuaikan versi package di pubspec.yaml.',
-                ),
-
                 _readmeDivider(),
-
-                // ── Langkah 5 ─────────────────────────────────────
                 _readmeHeading('Langkah 5 — Build APK'),
                 _readmeBody('Testing cepat (debug):'),
                 _readmeCode('flutter run'),
@@ -1023,10 +1035,7 @@ Email: rekty.anjany@gmail.com
                   'build/app/outputs/flutter-apk/app-release.apk\n\n'
                   'Install ke HP Android — aktifkan "Install dari sumber tidak dikenal" di Settings HP.',
                 ),
-
                 _readmeDivider(),
-
-                // ── Struktur Project ──────────────────────────────
                 _readmeHeading('Struktur Project'),
                 _readmeCode(
                   'lib/\n'
@@ -1049,10 +1058,7 @@ Email: rekty.anjany@gmail.com
                   '    ├── chat_bubble.dart\n'
                   '    └── loading_widget.dart',
                 ),
-
                 _readmeDivider(),
-
-                // ── Fitur ─────────────────────────────────────────
                 _readmeHeading('✅ Fitur'),
                 _readmeBody(
                   '• Chat teks dengan berbagai model AI (via Pollinations.ai)\n'
@@ -1065,10 +1071,7 @@ Email: rekty.anjany@gmail.com
                   '• Multi-bahasa (Indonesia, English, dan 13 bahasa lainnya)\n'
                   '• Dark theme modern hitam',
                 ),
-
                 _readmeDivider(),
-
-                // ── Catatan Model ─────────────────────────────────
                 _readmeHeading('⚠️ Catatan: Model Berubah Seiring Waktu'),
                 _readmeBody(
                   'Pollinations.ai sering menambah atau meng-update model. Kalau app '
@@ -1078,39 +1081,25 @@ Email: rekty.anjany@gmail.com
                   '  • https://pollinations.ai/docs\n'
                   '  • https://pollinations.ai/models',
                 ),
-
                 _readmeDivider(),
-
-                // ── Troubleshooting ───────────────────────────────
                 _readmeHeading('🛠 Troubleshooting Umum'),
                 _buildTroubleshootingTable(),
-
                 _readmeDivider(),
-
-                // ── Kontak & Credit ───────────────────────────────
                 _readmeHeading('Kontak'),
                 _readmeBody('Developer : Rekty Anjany\nEmail     : rekty.anjany@gmail.com'),
-
                 const SizedBox(height: 16),
                 Center(
                   child: Column(
                     children: [
-                      // pollinations.ai Logo White (bunga)
                       Image.network(
                         'https://image.pollinations.ai/prompt/pollinations%20ai%20logo%20white%20flower%20minimal?width=120&height=120&model=flux&nologo=true',
                         height: 44,
                         errorBuilder: (_, __, ___) => const Text('🌸', style: TextStyle(fontSize: 28)),
                       ),
                       const SizedBox(height: 6),
-                      const Text(
-                        'Powered by pollinations.ai',
-                        style: TextStyle(color: Colors.white38, fontSize: 11),
-                      ),
+                      const Text('Powered by pollinations.ai', style: TextStyle(color: Colors.white38, fontSize: 11)),
                       const SizedBox(height: 4),
-                      const Text(
-                        '© 2026 Rekty Anjany',
-                        style: TextStyle(color: Colors.white24, fontSize: 11),
-                      ),
+                      const Text('© 2026 Rekty Anjany', style: TextStyle(color: Colors.white24, fontSize: 11)),
                     ],
                   ),
                 ),
@@ -1122,14 +1111,12 @@ Email: rekty.anjany@gmail.com
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Tutup', style: TextStyle(color: Color(0xFF00E5FF))),
+            child: const Text('OK', style: TextStyle(color: Color(0xFF00E5FF))),
           ),
         ],
       ),
     );
   }
-
-  // ── Tabel troubleshooting ──────────────────────────────────────────────
 
   Widget _buildTroubleshootingTable() {
     final rows = [
@@ -1158,82 +1145,13 @@ Email: rekty.anjany@gmail.com
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                row[0],
-                style: const TextStyle(
-                  color: Color(0xFF00E5FF),
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                ),
-              ),
+              Text(row[0], style: const TextStyle(color: Color(0xFF00E5FF), fontSize: 12, fontFamily: 'monospace')),
               const SizedBox(height: 4),
-              Text(
-                row[1],
-                style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.5),
-              ),
+              Text(row[1], style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.5)),
             ],
           ),
         );
       }).toList(),
-    );
-  }
-
-  // ── Dialog: Lisensi ────────────────────────────────────────────────────
-
-  void _showLicenseDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF101417),
-        title: const Text('Lisensi Rekty AI',
-            style: TextStyle(color: Colors.white)),
-        content: const SingleChildScrollView(
-          child: Text(
-            '''
-REKTY AI LICENSE AGREEMENT
-
-Versi 1.0.0
-
-© 2026 Rekty. All Rights Reserved.
-
-1. Pengguna diperbolehkan menggunakan aplikasi untuk kebutuhan pribadi maupun bisnis.
-
-2. Dilarang menjual ulang, mendistribusikan ulang, atau memodifikasi aplikasi untuk tujuan komersial tanpa izin tertulis dari Rekty.
-
-3. Beberapa fitur menggunakan layanan AI pihak ketiga dan API Key yang valid.
-
-4. Aplikasi disediakan sebagaimana adanya tanpa jaminan apa pun.
-
-5. Pengembang tidak bertanggung jawab atas kehilangan data, kerugian bisnis, atau gangguan layanan pihak ketiga.
-
-6. Dengan menggunakan aplikasi ini, pengguna dianggap menyetujui seluruh ketentuan lisensi.
-
-© 2026 Rekty
-faq rekty.anjany@gmail.com
-
-            ''',
-            style: TextStyle(color: Colors.white70, height: 1.5),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Tutup',
-                style: TextStyle(color: Color(0xFF00E5FF))),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ── Snackbar ───────────────────────────────────────────────────────────
-
-  void _showSnack(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: const Color(0xFF101417),
-      ),
     );
   }
 }
